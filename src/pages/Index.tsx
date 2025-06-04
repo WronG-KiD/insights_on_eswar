@@ -1,3 +1,4 @@
+
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { motion } from 'framer-motion';
@@ -9,18 +10,57 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import * as THREE from 'three';
 
-const AnimatedSphere = () => {
+const AnimatedPegasus = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   
   return (
-    <mesh ref={meshRef} position={[0, 0, 0]} scale={2}>
-      <sphereGeometry args={[1, 32, 32]} />
-      <meshStandardMaterial 
-        color="#3b82f6" 
-        roughness={0.3}
-        metalness={0.1}
-      />
-    </mesh>
+    <group>
+      {/* Pegasus body */}
+      <mesh position={[0, 0, 0]} scale={1.5}>
+        <cylinderGeometry args={[0.8, 1.2, 2, 8]} />
+        <meshStandardMaterial color="#e6e6fa" roughness={0.3} metalness={0.1} />
+      </mesh>
+      
+      {/* Pegasus head */}
+      <mesh position={[0, 1.5, 1]} scale={1}>
+        <sphereGeometry args={[0.6, 16, 16]} />
+        <meshStandardMaterial color="#e6e6fa" roughness={0.3} metalness={0.1} />
+      </mesh>
+      
+      {/* Horn */}
+      <mesh position={[0, 2.3, 1.3]} rotation={[0.3, 0, 0]} scale={0.8}>
+        <coneGeometry args={[0.1, 0.8, 8]} />
+        <meshStandardMaterial color="#ffd700" roughness={0.2} metalness={0.8} />
+      </mesh>
+      
+      {/* Wings */}
+      <mesh position={[-1.2, 0.5, 0]} rotation={[0, 0, 0.3]} scale={1.2}>
+        <boxGeometry args={[0.1, 1.5, 0.8]} />
+        <meshStandardMaterial color="#87ceeb" roughness={0.3} metalness={0.1} />
+      </mesh>
+      <mesh position={[1.2, 0.5, 0]} rotation={[0, 0, -0.3]} scale={1.2}>
+        <boxGeometry args={[0.1, 1.5, 0.8]} />
+        <meshStandardMaterial color="#87ceeb" roughness={0.3} metalness={0.1} />
+      </mesh>
+      
+      {/* Legs */}
+      <mesh position={[-0.5, -1.5, 0.3]} scale={0.8}>
+        <cylinderGeometry args={[0.15, 0.15, 1, 8]} />
+        <meshStandardMaterial color="#8b4513" roughness={0.5} metalness={0.1} />
+      </mesh>
+      <mesh position={[0.5, -1.5, 0.3]} scale={0.8}>
+        <cylinderGeometry args={[0.15, 0.15, 1, 8]} />
+        <meshStandardMaterial color="#8b4513" roughness={0.5} metalness={0.1} />
+      </mesh>
+      <mesh position={[-0.5, -1.5, -0.3]} scale={0.8}>
+        <cylinderGeometry args={[0.15, 0.15, 1, 8]} />
+        <meshStandardMaterial color="#8b4513" roughness={0.5} metalness={0.1} />
+      </mesh>
+      <mesh position={[0.5, -1.5, -0.3]} scale={0.8}>
+        <cylinderGeometry args={[0.15, 0.15, 1, 8]} />
+        <meshStandardMaterial color="#8b4513" roughness={0.5} metalness={0.1} />
+      </mesh>
+    </group>
   );
 };
 
@@ -100,6 +140,24 @@ const projects = [
     description: "Real-time Air Quality Index monitoring system for Indian cities with MySQL storage and reporting",
     tech: ["Python", "MySQL", "Data Analysis", "APIs"],
     icon: <Database className="h-6 w-6" />
+  },
+  {
+    title: "AI-Powered Simulation Models",
+    description: "AI-powered simulation models use generative AI techniques to simulate real-world processes, systems, or phenomena for prediction and optimization",
+    tech: ["Python", "AI", "Simulation", "Generative AI"],
+    icon: <Cpu className="h-6 w-6" />
+  },
+  {
+    title: "Fraud Transaction Detection",
+    description: "Build a system that can classify if a transaction is fraudulent or not using machine learning algorithms",
+    tech: ["Python", "ML", "Classification", "Data Analysis"],
+    icon: <Shield className="h-6 w-6" />
+  },
+  {
+    title: "Forest Cover Type Prediction",
+    description: "Build a system that can predict the type of forest cover using analysis data for a 30m x 30m patch of land in the forest",
+    tech: ["Python", "ML", "Prediction", "Environmental Data"],
+    icon: <Globe className="h-6 w-6" />
   }
 ];
 
@@ -121,7 +179,8 @@ const certifications = [
   "Image Processing with MATLAB – On Ramp",
   "Introduction to Machine Learning – NPTEL",
   "Demystifying Networks – NPTEL",
-  "Divide & Conquer, Sorting, and Randomized Algorithms – Stanford University"
+  "Divide & Conquer, Sorting, and Randomized Algorithms – Stanford University",
+  "Employability and Communication Skills – NPTEL (Silver Medal)"
 ];
 
 const hackathons = [
@@ -145,11 +204,11 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
-          <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+          <Canvas camera={{ position: [0, 0, 8], fov: 75 }}>
             <OrbitControls enableZoom={false} enablePan={false} enableRotate={true} />
             <ambientLight intensity={0.5} />
             <directionalLight position={[10, 10, 5]} intensity={1} />
-            <AnimatedSphere />
+            <AnimatedPegasus />
           </Canvas>
         </div>
         
@@ -275,14 +334,24 @@ const Index = () => {
                 <CardContent>
                   <div className="space-y-4">
                     <div>
+                      <h4 className="font-semibold text-white">Machine Learning Intern</h4>
+                      <p className="text-gray-400">Unified Mentor</p>
+                      <p className="text-sm text-gray-500">Current | ₹7.5k stipend for 3 months</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white">Cybersecurity Intern</h4>
+                      <p className="text-gray-400">Skillcraft Technology</p>
+                      <p className="text-sm text-gray-500">Dec 2024 - Jan 2025</p>
+                    </div>
+                    <div>
                       <h4 className="font-semibold text-white">DevOps Intern</h4>
                       <p className="text-gray-400">FINT Solutions</p>
                       <p className="text-sm text-gray-500">May 2024 - July 2024</p>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white">Cybersecurity Intern</h4>
-                      <p className="text-gray-400">Skillcraft Technology</p>
-                      <p className="text-sm text-gray-500">Dec 2024 - Present</p>
+                      <h4 className="font-semibold text-white">Secretary</h4>
+                      <p className="text-gray-400">Rotary Club of Madras Midtown</p>
+                      <p className="text-sm text-gray-500">July 2024 - Current</p>
                     </div>
                   </div>
                 </CardContent>
@@ -423,14 +492,6 @@ const Index = () => {
                         </Badge>
                       ))}
                     </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="mt-4 text-blue-400 hover:text-blue-300 hover:bg-blue-400/10 p-0"
-                    >
-                      Learn More
-                      <ExternalLink className="ml-2 h-4 w-4" />
-                    </Button>
                   </CardContent>
                 </Card>
               </motion.div>
