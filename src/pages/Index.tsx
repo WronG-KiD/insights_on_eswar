@@ -1,22 +1,25 @@
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Sphere, MeshDistortMaterial, Float } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Download, ExternalLink, Code, Database, Shield, Cpu, Globe, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useRef } from 'react';
+import * as THREE from 'three';
 
 const AnimatedSphere = () => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  
   return (
-    <Sphere visible args={[1, 100, 200]} scale={2}>
-      <MeshDistortMaterial
-        color="#3b82f6"
-        attach="material"
-        distort={0.3}
-        speed={1.5}
-        roughness={0}
+    <mesh ref={meshRef} position={[0, 0, 0]} scale={2}>
+      <sphereGeometry args={[1, 32, 32]} />
+      <meshStandardMaterial 
+        color="#3b82f6" 
+        roughness={0.3}
+        metalness={0.1}
       />
-    </Sphere>
+    </mesh>
   );
 };
 
@@ -99,7 +102,7 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
-          <Canvas>
+          <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
             <OrbitControls enableZoom={false} enablePan={false} enableRotate={true} />
             <ambientLight intensity={0.5} />
             <directionalLight position={[10, 10, 5]} intensity={1} />
