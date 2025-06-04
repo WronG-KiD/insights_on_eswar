@@ -1,11 +1,12 @@
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Download, ExternalLink, Code, Database, Shield, Cpu, Globe, Award } from 'lucide-react';
+import { Github, Linkedin, Mail, Download, ExternalLink, Code, Database, Shield, Cpu, Globe, Award, Trophy, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import * as THREE from 'three';
 
 const AnimatedSphere = () => {
@@ -23,17 +24,44 @@ const AnimatedSphere = () => {
   );
 };
 
-const FloatingIcon = ({ children, delay = 0 }) => (
-  <Float speed={1.5} rotationIntensity={1} floatIntensity={2}>
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.8 }}
-      className="text-blue-400 p-4 bg-gray-800/50 rounded-xl backdrop-blur-sm"
-    >
-      {children}
-    </motion.div>
-  </Float>
+const Navigation = () => (
+  <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-sm border-b border-gray-800">
+    <div className="max-w-6xl mx-auto px-6 py-4">
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-bold text-white">Eswar D</h1>
+        <div className="flex items-center gap-6">
+          <Link to="/" className="text-gray-300 hover:text-blue-400 transition-colors">
+            Home
+          </Link>
+          <Link to="/resume" className="text-gray-300 hover:text-blue-400 transition-colors">
+            Resume
+          </Link>
+          <a 
+            href="https://www.linkedin.com/in/eswar-donthineni-eswarai/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-300 hover:text-blue-400 transition-colors"
+          >
+            LinkedIn
+          </a>
+          <a 
+            href="https://github.com/WronG-KiD" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-300 hover:text-blue-400 transition-colors"
+          >
+            GitHub
+          </a>
+          <a 
+            href="mailto:rawselavigne@gmail.com"
+            className="text-gray-300 hover:text-blue-400 transition-colors"
+          >
+            Email
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
 );
 
 const projects = [
@@ -96,9 +124,24 @@ const certifications = [
   "Divide & Conquer, Sorting, and Randomized Algorithms – Stanford University"
 ];
 
+const hackathons = [
+  {
+    name: "Smart India Hackathon (SIH)",
+    status: "Participant",
+    description: "National level hackathon organized by Government of India"
+  },
+  {
+    name: "TN Police Hackathon",
+    status: "Finalist",
+    description: "Tamil Nadu Police Department hackathon for innovative solutions"
+  }
+];
+
 const Index = () => {
   return (
     <div className="bg-gray-900 text-white min-h-screen">
+      <Navigation />
+      
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
@@ -117,7 +160,7 @@ const Index = () => {
             transition={{ duration: 1 }}
           >
             <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-              Your Name
+              Eswar D
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
               Passionate B.Tech Computer Science Student & Future Software Engineer
@@ -127,34 +170,42 @@ const Index = () => {
             </p>
             
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                <Download className="mr-2 h-5 w-5" />
-                Download Resume
-              </Button>
-              <Button variant="outline" size="lg" className="border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-gray-900">
-                <Mail className="mr-2 h-5 w-5" />
-                Contact Me
-              </Button>
+              <Link to="/resume">
+                <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+                  <ExternalLink className="mr-2 h-5 w-5" />
+                  View Resume
+                </Button>
+              </Link>
+              <a href="mailto:rawselavigne@gmail.com">
+                <Button variant="outline" size="lg" className="border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-gray-900">
+                  <Mail className="mr-2 h-5 w-5" />
+                  Contact Me
+                </Button>
+              </a>
             </div>
             
             <div className="flex gap-6 justify-center mt-8">
               <motion.a
                 whileHover={{ scale: 1.1 }}
-                href="#"
+                href="https://github.com/WronG-KiD"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <Github className="h-6 w-6" />
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.1 }}
-                href="#"
+                href="https://www.linkedin.com/in/eswar-donthineni-eswarai/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <Linkedin className="h-6 w-6" />
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.1 }}
-                href="#"
+                href="mailto:rawselavigne@gmail.com"
                 className="text-gray-400 hover:text-blue-400 transition-colors"
               >
                 <Mail className="h-6 w-6" />
@@ -388,6 +439,53 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Hackathons Section */}
+      <section className="py-20 px-6 bg-gray-800/30">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Hackathons</h2>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Competitive programming events and innovation challenges I've participated in
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {hackathons.map((hackathon, index) => (
+              <motion.div
+                key={hackathon.name}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <Card className="bg-gray-800/50 border-gray-700 backdrop-blur-sm hover:border-blue-400/50 transition-all duration-300">
+                  <CardContent className="p-8 text-center">
+                    <div className="flex items-center justify-center mb-4">
+                      <Trophy className="h-12 w-12 text-yellow-400" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2">{hackathon.name}</h3>
+                    <Badge 
+                      variant={hackathon.status === "Finalist" ? "default" : "secondary"} 
+                      className={`mb-4 ${hackathon.status === "Finalist" ? "bg-blue-600 text-white" : "bg-gray-700 text-gray-300"}`}
+                    >
+                      {hackathon.status}
+                    </Badge>
+                    <p className="text-gray-300">{hackathon.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Certifications Section */}
       <section className="py-20 px-6 bg-gray-800/30">
         <div className="max-w-6xl mx-auto">
@@ -427,7 +525,7 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 bg-gray-800/30">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -441,14 +539,18 @@ const Index = () => {
             </p>
             
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                <Mail className="mr-2 h-5 w-5" />
-                Get In Touch
-              </Button>
-              <Button variant="outline" size="lg" className="border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-gray-900">
-                <Download className="mr-2 h-5 w-5" />
-                Download Resume
-              </Button>
+              <a href="mailto:rawselavigne@gmail.com">
+                <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+                  <Mail className="mr-2 h-5 w-5" />
+                  Get In Touch
+                </Button>
+              </a>
+              <Link to="/resume">
+                <Button variant="outline" size="lg" className="border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-gray-900">
+                  <ExternalLink className="mr-2 h-5 w-5" />
+                  View Resume
+                </Button>
+              </Link>
             </div>
           </motion.div>
         </div>
@@ -458,7 +560,7 @@ const Index = () => {
       <footer className="py-8 px-6 border-t border-gray-800">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-gray-400">
-            © 2024 Your Portfolio. Built with React, Three.js, and lots of ☕
+            © 2024 Eswar D Portfolio. Built with React, Three.js, and lots of ☕
           </p>
         </div>
       </footer>
