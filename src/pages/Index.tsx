@@ -1,4 +1,3 @@
-
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { motion } from 'framer-motion';
@@ -10,55 +9,91 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import * as THREE from 'three';
 
-const AnimatedPegasus = () => {
+const FloatingCrystal = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   
   return (
     <group>
-      {/* Pegasus body */}
-      <mesh position={[0, 0, 0]} scale={1.5}>
-        <cylinderGeometry args={[0.8, 1.2, 2, 8]} />
-        <meshStandardMaterial color="#e6e6fa" roughness={0.3} metalness={0.1} />
+      {/* Main Crystal */}
+      <mesh position={[0, 0, 0]} scale={2} rotation={[0.2, 0, 0.1]}>
+        <octahedronGeometry args={[1, 0]} />
+        <meshStandardMaterial 
+          color="#60a5fa" 
+          transparent 
+          opacity={0.8} 
+          roughness={0.1} 
+          metalness={0.3}
+          emissive="#1e40af"
+          emissiveIntensity={0.2}
+        />
       </mesh>
       
-      {/* Pegasus head */}
-      <mesh position={[0, 1.5, 1]} scale={1}>
-        <sphereGeometry args={[0.6, 16, 16]} />
-        <meshStandardMaterial color="#e6e6fa" roughness={0.3} metalness={0.1} />
+      {/* Secondary smaller crystals orbiting around */}
+      <mesh position={[2, 1, 0]} scale={0.5} rotation={[0.5, 0.3, 0]}>
+        <octahedronGeometry args={[1, 0]} />
+        <meshStandardMaterial 
+          color="#a855f7" 
+          transparent 
+          opacity={0.7} 
+          roughness={0.1} 
+          metalness={0.4}
+          emissive="#7c3aed"
+          emissiveIntensity={0.3}
+        />
       </mesh>
       
-      {/* Horn */}
-      <mesh position={[0, 2.3, 1.3]} rotation={[0.3, 0, 0]} scale={0.8}>
-        <coneGeometry args={[0.1, 0.8, 8]} />
-        <meshStandardMaterial color="#ffd700" roughness={0.2} metalness={0.8} />
+      <mesh position={[-2, -0.5, 1]} scale={0.7} rotation={[-0.3, 0.8, 0.2]}>
+        <octahedronGeometry args={[1, 0]} />
+        <meshStandardMaterial 
+          color="#ec4899" 
+          transparent 
+          opacity={0.7} 
+          roughness={0.1} 
+          metalness={0.4}
+          emissive="#be185d"
+          emissiveIntensity={0.3}
+        />
       </mesh>
       
-      {/* Wings */}
-      <mesh position={[-1.2, 0.5, 0]} rotation={[0, 0, 0.3]} scale={1.2}>
-        <boxGeometry args={[0.1, 1.5, 0.8]} />
-        <meshStandardMaterial color="#87ceeb" roughness={0.3} metalness={0.1} />
-      </mesh>
-      <mesh position={[1.2, 0.5, 0]} rotation={[0, 0, -0.3]} scale={1.2}>
-        <boxGeometry args={[0.1, 1.5, 0.8]} />
-        <meshStandardMaterial color="#87ceeb" roughness={0.3} metalness={0.1} />
+      <mesh position={[1, -2, -1]} scale={0.6} rotation={[0.7, -0.2, 0.5]}>
+        <octahedronGeometry args={[1, 0]} />
+        <meshStandardMaterial 
+          color="#06b6d4" 
+          transparent 
+          opacity={0.7} 
+          roughness={0.1} 
+          metalness={0.4}
+          emissive="#0891b2"
+          emissiveIntensity={0.3}
+        />
       </mesh>
       
-      {/* Legs */}
-      <mesh position={[-0.5, -1.5, 0.3]} scale={0.8}>
-        <cylinderGeometry args={[0.15, 0.15, 1, 8]} />
-        <meshStandardMaterial color="#8b4513" roughness={0.5} metalness={0.1} />
+      {/* Floating particles */}
+      <mesh position={[3, 2, 2]} scale={0.2}>
+        <sphereGeometry args={[1, 8, 8]} />
+        <meshStandardMaterial 
+          color="#fbbf24" 
+          emissive="#f59e0b"
+          emissiveIntensity={0.5}
+        />
       </mesh>
-      <mesh position={[0.5, -1.5, 0.3]} scale={0.8}>
-        <cylinderGeometry args={[0.15, 0.15, 1, 8]} />
-        <meshStandardMaterial color="#8b4513" roughness={0.5} metalness={0.1} />
+      
+      <mesh position={[-3, 1, -2]} scale={0.15}>
+        <sphereGeometry args={[1, 8, 8]} />
+        <meshStandardMaterial 
+          color="#10b981" 
+          emissive="#059669"
+          emissiveIntensity={0.5}
+        />
       </mesh>
-      <mesh position={[-0.5, -1.5, -0.3]} scale={0.8}>
-        <cylinderGeometry args={[0.15, 0.15, 1, 8]} />
-        <meshStandardMaterial color="#8b4513" roughness={0.5} metalness={0.1} />
-      </mesh>
-      <mesh position={[0.5, -1.5, -0.3]} scale={0.8}>
-        <cylinderGeometry args={[0.15, 0.15, 1, 8]} />
-        <meshStandardMaterial color="#8b4513" roughness={0.5} metalness={0.1} />
+      
+      <mesh position={[0, 3, 1]} scale={0.18}>
+        <sphereGeometry args={[1, 8, 8]} />
+        <meshStandardMaterial 
+          color="#f472b6" 
+          emissive="#ec4899"
+          emissiveIntensity={0.5}
+        />
       </mesh>
     </group>
   );
@@ -162,16 +197,16 @@ const projects = [
 ];
 
 const skills = [
-  { name: "Python", level: 90 },
-  { name: "Java", level: 85 },
+  { name: "Python", level: 50 },
+  { name: "C++", level: 25 },
+  { name: "Machine Learning", level: 60 },
+  { name: "Artificial Intelligence", level: 50 },
+  { name: "Cybersecurity", level: 30 },
+  { name: "AWS", level: 40 },
+  { name: "Jenkins", level: 50 },
   { name: "SQL", level: 80 },
-  { name: "Machine Learning", level: 85 },
   { name: "DevOps", level: 80 },
-  { name: "Cybersecurity", level: 75 },
-  { name: "Docker", level: 80 },
-  { name: "Jenkins", level: 75 },
-  { name: "AWS", level: 70 },
-  { name: "JavaScript", level: 75 }
+  { name: "Docker", level: 80 }
 ];
 
 const certifications = [
@@ -199,16 +234,55 @@ const hackathons = [
 const Index = () => {
   return (
     <div className="bg-gray-900 text-white min-h-screen">
-      <Navigation />
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-sm border-b border-gray-800">
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-bold text-white">Eswar D</h1>
+            <div className="flex items-center gap-6">
+              <Link to="/" className="text-gray-300 hover:text-blue-400 transition-colors">
+                Home
+              </Link>
+              <Link to="/resume" className="text-gray-300 hover:text-blue-400 transition-colors">
+                Resume
+              </Link>
+              <a 
+                href="https://www.linkedin.com/in/eswar-donthineni-eswarai/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-gray-300 hover:text-blue-400 transition-colors"
+              >
+                LinkedIn
+              </a>
+              <a 
+                href="https://github.com/WronG-KiD" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-gray-300 hover:text-blue-400 transition-colors"
+              >
+                GitHub
+              </a>
+              <a 
+                href="mailto:rawselavigne@gmail.com"
+                className="text-gray-300 hover:text-blue-400 transition-colors"
+              >
+                Email
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
       
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
           <Canvas camera={{ position: [0, 0, 8], fov: 75 }}>
             <OrbitControls enableZoom={false} enablePan={false} enableRotate={true} />
-            <ambientLight intensity={0.5} />
+            <ambientLight intensity={0.4} />
             <directionalLight position={[10, 10, 5]} intensity={1} />
-            <AnimatedPegasus />
+            <pointLight position={[0, 0, 10]} intensity={0.5} color="#60a5fa" />
+            <pointLight position={[5, 5, 0]} intensity={0.3} color="#a855f7" />
+            <FloatingCrystal />
           </Canvas>
         </div>
         
