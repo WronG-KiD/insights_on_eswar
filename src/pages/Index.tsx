@@ -60,30 +60,30 @@ const FloatingCrystal = () => {
   
   return (
     <group>
-      {/* Main Crystal */}
+      {/* Main Crystal - Rainbow gradient effect */}
       <mesh ref={mainCrystalRef} position={[0, 0, 0]} scale={2}>
         <octahedronGeometry args={[1, 0]} />
         <meshStandardMaterial 
-          color="#60a5fa" 
+          color="#ff6b6b" 
           transparent 
           opacity={0.8} 
           roughness={0.1} 
           metalness={0.3}
-          emissive="#1e40af"
+          emissive="#ff1744"
           emissiveIntensity={0.2}
         />
       </mesh>
       
-      {/* Secondary smaller crystals orbiting around */}
+      {/* Secondary smaller crystals orbiting around with different colors */}
       <mesh ref={secondaryCrystalRef1} position={[2, 1, 0]} scale={0.5}>
         <octahedronGeometry args={[1, 0]} />
         <meshStandardMaterial 
-          color="#a855f7" 
+          color="#4ecdc4" 
           transparent 
           opacity={0.7} 
           roughness={0.1} 
           metalness={0.4}
-          emissive="#7c3aed"
+          emissive="#00bcd4"
           emissiveIntensity={0.3}
         />
       </mesh>
@@ -91,12 +91,12 @@ const FloatingCrystal = () => {
       <mesh ref={secondaryCrystalRef2} position={[-2, -0.5, 1]} scale={0.7}>
         <octahedronGeometry args={[1, 0]} />
         <meshStandardMaterial 
-          color="#ec4899" 
+          color="#ffd93d" 
           transparent 
           opacity={0.7} 
           roughness={0.1} 
           metalness={0.4}
-          emissive="#be185d"
+          emissive="#ffc107"
           emissiveIntensity={0.3}
         />
       </mesh>
@@ -104,23 +104,23 @@ const FloatingCrystal = () => {
       <mesh ref={secondaryCrystalRef3} position={[1, -2, -1]} scale={0.6}>
         <octahedronGeometry args={[1, 0]} />
         <meshStandardMaterial 
-          color="#06b6d4" 
+          color="#a855f7" 
           transparent 
           opacity={0.7} 
           roughness={0.1} 
           metalness={0.4}
-          emissive="#0891b2"
+          emissive="#9c27b0"
           emissiveIntensity={0.3}
         />
       </mesh>
       
-      {/* Floating sparkles */}
+      {/* Floating sparkles with vibrant colors */}
       <group ref={sparklesRef}>
         <mesh position={[3, 2, 2]}>
           <sphereGeometry args={[1, 8, 8]} />
           <meshStandardMaterial 
-            color="#fbbf24" 
-            emissive="#f59e0b"
+            color="#ff9800" 
+            emissive="#e65100"
             emissiveIntensity={0.8}
             transparent
             opacity={0.9}
@@ -130,8 +130,8 @@ const FloatingCrystal = () => {
         <mesh position={[-3, 1, -2]}>
           <sphereGeometry args={[1, 8, 8]} />
           <meshStandardMaterial 
-            color="#10b981" 
-            emissive="#059669"
+            color="#4caf50" 
+            emissive="#2e7d32"
             emissiveIntensity={0.8}
             transparent
             opacity={0.9}
@@ -141,8 +141,8 @@ const FloatingCrystal = () => {
         <mesh position={[0, 3, 1]}>
           <sphereGeometry args={[1, 8, 8]} />
           <meshStandardMaterial 
-            color="#f472b6" 
-            emissive="#ec4899"
+            color="#e91e63" 
+            emissive="#c2185b"
             emissiveIntensity={0.8}
             transparent
             opacity={0.9}
@@ -152,8 +152,8 @@ const FloatingCrystal = () => {
         <mesh position={[2.5, -1.5, 2]}>
           <sphereGeometry args={[1, 8, 8]} />
           <meshStandardMaterial 
-            color="#8b5cf6" 
-            emissive="#7c3aed"
+            color="#673ab7" 
+            emissive="#512da8"
             emissiveIntensity={0.8}
             transparent
             opacity={0.9}
@@ -163,8 +163,8 @@ const FloatingCrystal = () => {
         <mesh position={[-1.5, 2.5, -1.5]}>
           <sphereGeometry args={[1, 8, 8]} />
           <meshStandardMaterial 
-            color="#06b6d4" 
-            emissive="#0891b2"
+            color="#00bcd4" 
+            emissive="#00838f"
             emissiveIntensity={0.8}
             transparent
             opacity={0.9}
