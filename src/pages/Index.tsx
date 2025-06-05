@@ -1,4 +1,5 @@
-import { Canvas } from '@react-three/fiber';
+
+import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Download, ExternalLink, Code, Database, Shield, Cpu, Globe, Award, Trophy, Menu } from 'lucide-react';
@@ -10,12 +11,57 @@ import { Link } from 'react-router-dom';
 import * as THREE from 'three';
 
 const FloatingCrystal = () => {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const mainCrystalRef = useRef<THREE.Mesh>(null);
+  const secondaryCrystalRef1 = useRef<THREE.Mesh>(null);
+  const secondaryCrystalRef2 = useRef<THREE.Mesh>(null);
+  const secondaryCrystalRef3 = useRef<THREE.Mesh>(null);
+  const sparklesRef = useRef<THREE.Group>(null);
+  
+  useFrame((state, delta) => {
+    // Main crystal rotation
+    if (mainCrystalRef.current) {
+      mainCrystalRef.current.rotation.y += delta * 0.5;
+      mainCrystalRef.current.rotation.x += delta * 0.2;
+    }
+    
+    // Secondary crystals orbiting
+    if (secondaryCrystalRef1.current) {
+      secondaryCrystalRef1.current.rotation.y += delta * 0.8;
+      secondaryCrystalRef1.current.position.x = Math.cos(state.clock.elapsedTime) * 2.5;
+      secondaryCrystalRef1.current.position.z = Math.sin(state.clock.elapsedTime) * 2.5;
+    }
+    
+    if (secondaryCrystalRef2.current) {
+      secondaryCrystalRef2.current.rotation.y += delta * 0.6;
+      secondaryCrystalRef2.current.position.x = Math.cos(state.clock.elapsedTime + Math.PI * 0.6) * 2;
+      secondaryCrystalRef2.current.position.z = Math.sin(state.clock.elapsedTime + Math.PI * 0.6) * 2;
+    }
+    
+    if (secondaryCrystalRef3.current) {
+      secondaryCrystalRef3.current.rotation.y += delta * 0.7;
+      secondaryCrystalRef3.current.position.x = Math.cos(state.clock.elapsedTime + Math.PI * 1.2) * 1.8;
+      secondaryCrystalRef3.current.position.z = Math.sin(state.clock.elapsedTime + Math.PI * 1.2) * 1.8;
+    }
+    
+    // Sparkles animation
+    if (sparklesRef.current) {
+      sparklesRef.current.rotation.y += delta * 0.3;
+      sparklesRef.current.children.forEach((sparkle, index) => {
+        const mesh = sparkle as THREE.Mesh;
+        mesh.rotation.y += delta * (1 + index * 0.2);
+        mesh.rotation.x += delta * (0.5 + index * 0.1);
+        
+        // Pulsing effect
+        const scale = 0.1 + Math.sin(state.clock.elapsedTime * 2 + index) * 0.05;
+        mesh.scale.setScalar(scale);
+      });
+    }
+  });
   
   return (
     <group>
       {/* Main Crystal */}
-      <mesh position={[0, 0, 0]} scale={2} rotation={[0.2, 0, 0.1]}>
+      <mesh ref={mainCrystalRef} position={[0, 0, 0]} scale={2}>
         <octahedronGeometry args={[1, 0]} />
         <meshStandardMaterial 
           color="#60a5fa" 
@@ -29,7 +75,7 @@ const FloatingCrystal = () => {
       </mesh>
       
       {/* Secondary smaller crystals orbiting around */}
-      <mesh position={[2, 1, 0]} scale={0.5} rotation={[0.5, 0.3, 0]}>
+      <mesh ref={secondaryCrystalRef1} position={[2, 1, 0]} scale={0.5}>
         <octahedronGeometry args={[1, 0]} />
         <meshStandardMaterial 
           color="#a855f7" 
@@ -42,7 +88,7 @@ const FloatingCrystal = () => {
         />
       </mesh>
       
-      <mesh position={[-2, -0.5, 1]} scale={0.7} rotation={[-0.3, 0.8, 0.2]}>
+      <mesh ref={secondaryCrystalRef2} position={[-2, -0.5, 1]} scale={0.7}>
         <octahedronGeometry args={[1, 0]} />
         <meshStandardMaterial 
           color="#ec4899" 
@@ -55,7 +101,7 @@ const FloatingCrystal = () => {
         />
       </mesh>
       
-      <mesh position={[1, -2, -1]} scale={0.6} rotation={[0.7, -0.2, 0.5]}>
+      <mesh ref={secondaryCrystalRef3} position={[1, -2, -1]} scale={0.6}>
         <octahedronGeometry args={[1, 0]} />
         <meshStandardMaterial 
           color="#06b6d4" 
@@ -68,33 +114,63 @@ const FloatingCrystal = () => {
         />
       </mesh>
       
-      {/* Floating particles */}
-      <mesh position={[3, 2, 2]} scale={0.2}>
-        <sphereGeometry args={[1, 8, 8]} />
-        <meshStandardMaterial 
-          color="#fbbf24" 
-          emissive="#f59e0b"
-          emissiveIntensity={0.5}
-        />
-      </mesh>
-      
-      <mesh position={[-3, 1, -2]} scale={0.15}>
-        <sphereGeometry args={[1, 8, 8]} />
-        <meshStandardMaterial 
-          color="#10b981" 
-          emissive="#059669"
-          emissiveIntensity={0.5}
-        />
-      </mesh>
-      
-      <mesh position={[0, 3, 1]} scale={0.18}>
-        <sphereGeometry args={[1, 8, 8]} />
-        <meshStandardMaterial 
-          color="#f472b6" 
-          emissive="#ec4899"
-          emissiveIntensity={0.5}
-        />
-      </mesh>
+      {/* Floating sparkles */}
+      <group ref={sparklesRef}>
+        <mesh position={[3, 2, 2]}>
+          <sphereGeometry args={[1, 8, 8]} />
+          <meshStandardMaterial 
+            color="#fbbf24" 
+            emissive="#f59e0b"
+            emissiveIntensity={0.8}
+            transparent
+            opacity={0.9}
+          />
+        </mesh>
+        
+        <mesh position={[-3, 1, -2]}>
+          <sphereGeometry args={[1, 8, 8]} />
+          <meshStandardMaterial 
+            color="#10b981" 
+            emissive="#059669"
+            emissiveIntensity={0.8}
+            transparent
+            opacity={0.9}
+          />
+        </mesh>
+        
+        <mesh position={[0, 3, 1]}>
+          <sphereGeometry args={[1, 8, 8]} />
+          <meshStandardMaterial 
+            color="#f472b6" 
+            emissive="#ec4899"
+            emissiveIntensity={0.8}
+            transparent
+            opacity={0.9}
+          />
+        </mesh>
+        
+        <mesh position={[2.5, -1.5, 2]}>
+          <sphereGeometry args={[1, 8, 8]} />
+          <meshStandardMaterial 
+            color="#8b5cf6" 
+            emissive="#7c3aed"
+            emissiveIntensity={0.8}
+            transparent
+            opacity={0.9}
+          />
+        </mesh>
+        
+        <mesh position={[-1.5, 2.5, -1.5]}>
+          <sphereGeometry args={[1, 8, 8]} />
+          <meshStandardMaterial 
+            color="#06b6d4" 
+            emissive="#0891b2"
+            emissiveIntensity={0.8}
+            transparent
+            opacity={0.9}
+          />
+        </mesh>
+      </group>
     </group>
   );
 };
